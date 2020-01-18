@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#9013FE</color>
+    <color name="colorPrimaryDark">#3A0866</color>
     <color name="colorAccent">#D81B60</color>
+
+
+    <color name="product_title_text">#141428</color>
+    <color name="product_price_text">#ABABC4</color>
+
+    <color name="product_card_outline">#18185004</color>
+
+    <color name="ic_explore">#ABABC4</color>
+
+    <color name="transparent">#80000000</color>
+
+    <color name="detail_title_text">#141428</color>
+    <color name="detail_price_text">#9013FE</color>
+    <color name="detail_description_text">#141428</color>
+
+    <color name="detail_alert_text">#A3A3B5</color>
+    <color name="detail_alert_background">#F6F6FA</color>
+    <color name="detail_button_text">#FFFFFF</color>
+    <color name="detail_button_background">#9013FE</color>
+
+    <color name="detail_fab_background">#181828</color>
+
 </resources>
