@@ -64,7 +64,7 @@ class IndexActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
                 viewModel.pageReset()
-                viewModel.loadProducts(query!!)
+                viewModel.loadProducts(query!!,viewModel.getSkinType())
                 return false
             }
 
@@ -83,17 +83,17 @@ class IndexActivity : AppCompatActivity() {
                     "지성"  -> {
                         (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
                         viewModel.pageReset()
-                        viewModel.loadProducts("","oily")
+                        viewModel.loadProducts(viewModel.getSearch(),"oily")
                     }
                     "건성"  -> {
                         (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
                         viewModel.pageReset()
-                        viewModel.loadProducts("","dry")
+                        viewModel.loadProducts(viewModel.getSearch(),"dry")
                     }
                     "민감성" -> {
                         (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
                         viewModel.pageReset()
-                        viewModel.loadProducts("","sensitive")
+                        viewModel.loadProducts(viewModel.getSearch(),"sensitive")
                     }
                 }
             }

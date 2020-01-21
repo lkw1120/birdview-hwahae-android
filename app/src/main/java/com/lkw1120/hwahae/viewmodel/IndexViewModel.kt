@@ -9,19 +9,17 @@ import com.lkw1120.hwahae.repository.ApiRepository
 class IndexViewModel : ViewModel() {
 
     private val products: MutableLiveData<MutableList<Product>> = MutableLiveData(ArrayList())
-    private var skin_type:String = "oily"
+    private var skinType:String = "oily"
     private var page:Int = 1
     private var search:String = ""
 
-    fun loadProducts(search:String = this.search, skin_type:String = this.skin_type) {
-        this.skin_type =
-            if(this.skin_type == skin_type) this.skin_type else skin_type
+    fun loadProducts(search:String = this.search, skinType:String = this.skinType) {
+        this.skinType =
+            if(this.skinType == skinType) this.skinType else skinType
         this.search =
-            if(this.search != "") this.search else search
-        ApiRepository.getProducts(this.products, this.skin_type, this.page, this.search)
+            if(this.search == search && this.search != "") this.search else search
+        ApiRepository.getProducts(this.products, this.skinType, this.page, this.search)
     }
-
-    fun getProducts(): LiveData<MutableList<Product>> = products
 
     fun nextPage() {
         page++
@@ -30,5 +28,9 @@ class IndexViewModel : ViewModel() {
         page = 1
     }
 
+    fun getProducts(): LiveData<MutableList<Product>> = products
+
+    fun getSkinType() = skinType
+    fun getSearch() = search
 }
 
