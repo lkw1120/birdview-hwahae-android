@@ -8,7 +8,8 @@ import com.lkw1120.hwahae.repository.ApiRepository
 
 class IndexViewModel : ViewModel() {
 
-    private val products: MutableLiveData<MutableList<Product>> = MutableLiveData(ArrayList())
+    private val statusCode: MutableLiveData<Int> = MutableLiveData()
+    private val products: MutableLiveData<MutableList<Product>> = MutableLiveData(mutableListOf())
     private var skinType:String = "oily"
     private var page:Int = 1
     private var search:String = ""
@@ -18,7 +19,7 @@ class IndexViewModel : ViewModel() {
             if(this.skinType == skinType) this.skinType else skinType
         this.search =
             if(this.search == search && this.search != "") this.search else search
-        ApiRepository.getProducts(this.products, this.skinType, this.page, this.search)
+        ApiRepository.getProducts(this.statusCode, this.products, this.skinType, this.page, this.search)
     }
 
     fun nextPage() {
@@ -28,6 +29,7 @@ class IndexViewModel : ViewModel() {
         page = 1
     }
 
+    fun getStatusCode(): LiveData<Int> = statusCode
     fun getProducts(): LiveData<MutableList<Product>> = products
 
     fun getSkinType() = skinType

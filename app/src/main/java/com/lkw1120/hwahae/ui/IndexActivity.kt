@@ -3,6 +3,7 @@ package com.lkw1120.hwahae.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.widget.NestedScrollView
@@ -34,7 +35,6 @@ class IndexActivity : AppCompatActivity() {
 
         searchObserver()
         spinnerObserver()
-
     }
 
     private fun recyclerViewSetup() {
@@ -54,10 +54,21 @@ class IndexActivity : AppCompatActivity() {
     }
 
     private fun recyclerViewObserver() {
+        viewModel.getStatusCode().observe(this,statusCodeObserver())
         viewModel.getProducts().observe(this,productsObserver())
     }
 
-
+    private fun statusCodeObserver() = Observer<Int> { code ->
+        when(code) {
+            200 -> {
+                binding.progressIcon.visibility = View.VISIBLE
+            }
+            else -> {
+                binding.progressIcon.visibility = View.INVISIBLE
+                Toast.makeText(this, "제품이 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     private fun searchObserver() {
         binding.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
@@ -67,10 +78,8 @@ class IndexActivity : AppCompatActivity() {
                 viewModel.loadProducts(query!!,viewModel.getSkinType())
                 return false
             }
-
             override fun onQueryTextChange(newText: String?): Boolean = false
         })
-
     }
 
     private fun spinnerObserver() {
@@ -98,7 +107,6 @@ class IndexActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
 
@@ -116,5 +124,4 @@ class IndexActivity : AppCompatActivity() {
             }
         }
     }
-
 }
