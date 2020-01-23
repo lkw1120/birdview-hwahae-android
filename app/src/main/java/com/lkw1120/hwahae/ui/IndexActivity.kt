@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lkw1120.hwahae.R
 import com.lkw1120.hwahae.databinding.ActivityIndexBinding
 import com.lkw1120.hwahae.datasource.entity.Product
@@ -117,7 +118,8 @@ class IndexActivity : AppCompatActivity() {
 
     private fun onScrollChangeListener() = NestedScrollView.OnScrollChangeListener {
             v, scrollX, scrollY, oldScrollX, oldScrollY ->
-        if(!binding.scrollView.canScrollVertically(1)) {
+        if(!binding.scrollView.canScrollVertically(1) &&
+            binding.recyclerView.scrollState == RecyclerView.SCROLL_STATE_SETTLING) {
             viewModel.run{
                 nextPage()
                 loadProducts()
