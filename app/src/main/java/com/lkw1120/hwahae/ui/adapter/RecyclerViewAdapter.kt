@@ -40,7 +40,7 @@ class RecyclerViewAdapter(private val context: Context) :
         init {
             binding.root.setOnClickListener {
                 val intent = Intent(it.context, DetailActivity::class.java)
-                intent.putExtra("id",binding.item!!.id.toString())
+                intent.putExtra("id",binding.item!!.id)
                 it.context.startActivity(intent)
             }
         }

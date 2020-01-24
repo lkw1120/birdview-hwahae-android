@@ -28,7 +28,7 @@ class DetailActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         dataObserver()
-        loadDetail(intent.getStringExtra("id")!!.toInt())
+        loadDetail(intent.getIntExtra("id",0))
         slideInAnimation()
 
         fabListener()
