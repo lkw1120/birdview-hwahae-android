@@ -18,7 +18,7 @@ object BindingAdapter {
     @BindingAdapter("price")
     fun setPrice(view: TextView, price: String?) {
         if(price != null) {
-            view.text = DecimalFormat("###,###").format(price?.toInt()) + "원"
+            view.text = "${DecimalFormat("###,###").format(price?.toInt())}원"
         }
     }
 }
