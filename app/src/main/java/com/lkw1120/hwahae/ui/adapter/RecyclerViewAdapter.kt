@@ -30,7 +30,6 @@ class RecyclerViewAdapter(private val context: Context) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(ItemProductBinding.inflate(LayoutInflater.from(parent.context),parent,false))
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(items[position])
     }
@@ -40,12 +39,10 @@ class RecyclerViewAdapter(private val context: Context) :
     class ViewHolder(private val binding: ItemProductBinding): RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
-
-                val intent = Intent(itemView.context, DetailActivity::class.java)
+                val intent = Intent(it.context, DetailActivity::class.java)
                 intent.putExtra("id",binding.item!!.id.toString())
-                binding.root.context.startActivity(intent)
+                it.context.startActivity(intent)
             }
-
         }
         fun bind(item: Product) {
             binding.item = item
