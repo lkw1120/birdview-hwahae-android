@@ -51,21 +51,21 @@ object ApiRepository {
                     }
                     else {
                         Log.d("Repos", response.body()!!.body.toString())
+                        body.postValue(null)
                     }
                 }
             }
             override fun onFailure(call: Call<T2>, t: Throwable) {
-                Log.d("Repos","${t.message}")
                 when (retryCount) {
-                    in 0 until 5 -> {
+                    in 0 until 3 -> {
                         retryCount++
-                        Log.d("Repos","Retry " + retryCount)
+                        Log.d("Repos",t.message!!)
                         call.clone().enqueue(this)
                     }
                     else         -> {
                         retryCount = 0
-                        onFailure(call,Throwable())
-
+                        statusCode.postValue(500)
+                        body.postValue(null)
                     }
                 }
             }

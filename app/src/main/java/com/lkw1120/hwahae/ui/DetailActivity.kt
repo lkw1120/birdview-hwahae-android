@@ -3,7 +3,6 @@ package com.lkw1120.hwahae.ui
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
@@ -13,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.lkw1120.hwahae.R
 import com.lkw1120.hwahae.databinding.ActivityDetailBinding
+import com.lkw1120.hwahae.datasource.entity.Detail
 import com.lkw1120.hwahae.viewmodel.DetailViewModel
 
 
@@ -27,23 +27,52 @@ class DetailActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         binding.lifecycleOwner = this
 
-        viewModel.getDetail().observe(this, Observer {
-            binding.detail = it
-            Log.d("Test","여기까진 오나????")
-        })
-
-        viewModel.loadDetail(intent.getStringExtra("id")!!.toInt())
-
+        dataObserver()
+        loadDetail(intent.getStringExtra("id")!!.toInt())
         slideInAnimation()
 
         fabListener()
         buttonListener()
+    }
 
+    private fun dataObserver() {
+        viewModel.getStatusCode().observe(this, statusCodeObserver())
+        viewModel.getDetail().observe(this, detailObserver())
+    }
+
+    private fun statusCodeObserver() = Observer<Int> { code ->
+        when(code) {
+            200 -> {
+
+            }
+            400 -> {
+                Toast.makeText(this,"파라미터의 값이 올바르지 않습니다.",Toast.LENGTH_SHORT).show()
+                onBackPressed()
+            }
+            404 -> {
+                Toast.makeText(this,"제품이 없습니다.", Toast.LENGTH_SHORT).show()
+                onBackPressed()
+            }
+            500 -> {
+                Toast.makeText(this,"서버에 문제가 있습니다.", Toast.LENGTH_SHORT).show()
+                onBackPressed()
+            }
+        }
+    }
+
+    private fun detailObserver() = Observer<Detail> {
+        if(it != null) {
+            binding.detail = it
+        }
+    }
+
+    private fun loadDetail(id: Int) {
+        viewModel.loadDetail(id)
     }
 
     private fun buttonListener() {
         binding.detailButton.setOnClickListener {
-            Toast.makeText(this,"구매 버튼 클릭!",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"구매 버튼 클릭",Toast.LENGTH_SHORT).show()
         }
     }
     private fun fabListener() {

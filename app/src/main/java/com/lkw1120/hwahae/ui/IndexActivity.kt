@@ -30,15 +30,15 @@ class IndexActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_index)
         binding.lifecycleOwner = this
 
-        recyclerViewSetup()
-        recyclerViewObserver()
-        recyclerViewLoadProducts()
+        setup()
+        dataObserver()
+        loadProducts()
 
-        searchObserver()
-        spinnerObserver()
+        searchListener()
+        skinTypeListener()
     }
 
-    private fun recyclerViewSetup() {
+    private fun setup() {
         binding.recyclerView.run {
             addItemDecoration(RecyclerViewDecoration(2,
                 resources.getDimensionPixelSize(R.dimen.product_item_margin_width),
@@ -49,12 +49,7 @@ class IndexActivity : AppCompatActivity() {
         }
     }
 
-    private fun recyclerViewLoadProducts() {
-        viewModel.loadProducts()
-        binding.scrollView.setOnScrollChangeListener(onScrollChangeListener())
-    }
-
-    private fun recyclerViewObserver() {
+    private fun dataObserver() {
         viewModel.getStatusCode().observe(this,statusCodeObserver())
         viewModel.getProducts().observe(this,productsObserver())
     }
@@ -64,16 +59,47 @@ class IndexActivity : AppCompatActivity() {
             200 -> {
                 binding.progressIcon.visibility = View.VISIBLE
             }
-            else -> {
+            400 -> {
                 binding.progressIcon.visibility = View.INVISIBLE
-                Toast.makeText(this, "제품이 없습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"파라미터의 값이 올바르지 않습니다.",Toast.LENGTH_SHORT).show()
+            }
+            404 -> {
+                binding.progressIcon.visibility = View.INVISIBLE
+                Toast.makeText(this,"제품이 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+            500 -> {
+                binding.progressIcon.visibility = View.INVISIBLE
+                Toast.makeText(this,"서버에 문제가 있습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun searchObserver() {
+    private fun productsObserver() = Observer<MutableList<Product>>{
+        if(it != null) {
+            (binding.recyclerView.adapter as RecyclerViewAdapter).addItems(it)
+        }
+    }
+
+    private fun loadProducts() {
+        viewModel.loadProducts()
+        binding.scrollView.setOnScrollChangeListener(onScrollChangeListener())
+    }
+
+    private fun onScrollChangeListener() = NestedScrollView.OnScrollChangeListener {
+            _, _, _, _, _ ->
+        if(!binding.scrollView.canScrollVertically(1) &&
+            binding.recyclerView.scrollState == RecyclerView.SCROLL_STATE_SETTLING) {
+            viewModel.run{
+                nextPage()
+                loadProducts()
+            }
+        }
+    }
+
+    private fun searchListener() {
         binding.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                binding.progressIcon.visibility = View.VISIBLE
                 (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
                 viewModel.pageReset()
                 viewModel.loadProducts(query!!,viewModel.getSkinType())
@@ -83,12 +109,13 @@ class IndexActivity : AppCompatActivity() {
         })
     }
 
-    private fun spinnerObserver() {
+    private fun skinTypeListener() {
         binding.spinnerType.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                binding.progressIcon.visibility = View.VISIBLE
                 when(binding.spinnerType.getItemAtPosition(position)) {
                     "지성"  -> {
                         (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
@@ -106,23 +133,6 @@ class IndexActivity : AppCompatActivity() {
                         viewModel.loadProducts(viewModel.getSearch(),"sensitive")
                     }
                 }
-            }
-        }
-    }
-
-
-
-    private fun productsObserver() = Observer<MutableList<Product>>{
-        (binding.recyclerView.adapter as RecyclerViewAdapter).addItems(it)
-    }
-
-    private fun onScrollChangeListener() = NestedScrollView.OnScrollChangeListener {
-            v, scrollX, scrollY, oldScrollX, oldScrollY ->
-        if(!binding.scrollView.canScrollVertically(1) &&
-            binding.recyclerView.scrollState == RecyclerView.SCROLL_STATE_SETTLING) {
-            viewModel.run{
-                nextPage()
-                loadProducts()
             }
         }
     }
