@@ -18,6 +18,8 @@
     <color name="detail_price_text">#9013FE</color>
     <color name="detail_description_text">#141428</color>
 
+    <color name="detail_horizon_bar_background">#ECECF5</color>
+
     <color name="detail_alert_text">#A3A3B5</color>
     <color name="detail_alert_background">#F6F6FA</color>
     <color name="detail_button_text">#FFFFFF</color>

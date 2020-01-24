@@ -6,7 +6,6 @@
                 <variable
                     name="item"
                     type="com.lkw1120.hwahae.datasource.entity.Product" />
-
         </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,13 +13,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/product_thumbnail_image_card_view"
+                    android:id="@+id/product_thumbnail_card_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:strokeWidth="@dimen/product_card_stroke_width"
+                    app:strokeWidth="@dimen/product_thumbnail_card_stroke_width"
                     app:strokeColor="@color/product_card_outline"
-                    app:cardElevation="@dimen/product_card_elevation"
-                    app:cardCornerRadius="@dimen/product_card_corner_radius"
+                    app:cardElevation="@dimen/product_thumbnail_card_elevation"
+                    app:cardCornerRadius="@dimen/product_thumbnail_card_corner_radius"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
                         <ImageView
@@ -35,28 +34,28 @@
                     android:id="@+id/product_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginStart="@dimen/product_text_margin_start"
-                    android:layout_marginEnd="@dimen/product_text_margin_end"
+                    android:layout_marginStart="@dimen/product_title_margin_start"
+                    android:layout_marginEnd="@dimen/product_title_margin_end"
+                    android:layout_marginTop="@dimen/product_title_margin_top"
                     android:ellipsize="end"
                     android:text="@{item.title}"
                     android:textColor="@color/product_title_text"
-                    android:textSize="@dimen/product_text_text_size"
-                    android:lineHeight="@dimen/product_text_line_height"
+                    android:textSize="@dimen/product_title_text_size"
+                    android:lineHeight="@dimen/product_title_line_height"
                     android:maxLines="2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/product_thumbnail_image_card_view" />
+                    app:layout_constraintTop_toBottomOf="@id/product_thumbnail_card_view" />
 
                 <TextView
                     android:id="@+id/product_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/product_text_margin_start"
-                    android:layout_marginEnd="@dimen/product_text_margin_end"
+                    android:layout_marginStart="@dimen/product_price_margin_start"
+                    android:layout_marginEnd="@dimen/product_price_margin_end"
                     price="@{item.price}"
                     android:textColor="@color/product_price_text"
-                    android:textSize="@dimen/product_text_text_size"
-                    android:lineHeight="@dimen/product_text_line_height"
+                    android:textSize="@dimen/product_price_text_size"
+                    android:lineHeight="@dimen/product_price_line_height"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/product_title" />
         </androidx.constraintlayout.widget.ConstraintLayout>

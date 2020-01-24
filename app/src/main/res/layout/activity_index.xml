@@ -21,7 +21,7 @@
             android:id="@+id/appbar_search"
             android:layout_width="match_parent"
             android:layout_height="@dimen/appbar_search_height"
-            app:elevation="0dp"
+            app:elevation="@dimen/appbar_search_elevation"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent">
             <androidx.cardview.widget.CardView
@@ -36,10 +36,10 @@
                     android:id="@+id/search_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="@dimen/search_view_margin_start"
+                    android:layout_marginEnd="@dimen/search_view_margin_end"
+                    android:layout_marginTop="@dimen/search_view_margin_top"
+                    android:layout_marginBottom="@dimen/search_view_margin_bottom"
                     app:queryBackground="@android:color/transparent"/>
             </androidx.cardview.widget.CardView>
         </com.google.android.material.appbar.AppBarLayout>
@@ -86,8 +86,8 @@
                         android:id="@+id/recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="12dp"
+                        android:layout_marginStart="@dimen/recycler_view_margin_start"
+                        android:layout_marginEnd="@dimen/recycler_view_margin_end"
                         android:overScrollMode="never"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
@@ -96,8 +96,8 @@
                         android:id="@+id/progress_icon"
                         android:layout_width="@dimen/progress_icon_width"
                         android:layout_height="@dimen/progress_icon_height"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginBottom="32dp"
+                        android:layout_marginTop="@dimen/progress_icon_margin_top"
+                        android:layout_marginBottom="@dimen/progress_icon_margin_bottom"
                         android:indeterminateDrawable="@drawable/ic_explore_rotate"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
