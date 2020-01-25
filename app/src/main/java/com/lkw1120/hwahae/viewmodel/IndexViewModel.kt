@@ -25,7 +25,7 @@ class IndexViewModel : ViewModel() {
     fun nextPage() {
         page++
     }
-    fun pageReset() {
+    fun resetPage() {
         page = 1
     }
 

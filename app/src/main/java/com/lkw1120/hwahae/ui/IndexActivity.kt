@@ -101,7 +101,7 @@ class IndexActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 binding.progressIcon.visibility = View.VISIBLE
                 (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
-                viewModel.pageReset()
+                viewModel.resetPage()
                 viewModel.loadProducts(query!!,viewModel.getSkinType())
                 return false
             }
@@ -119,17 +119,17 @@ class IndexActivity : AppCompatActivity() {
                 when(binding.spinnerType.getItemAtPosition(position)) {
                     "지성"  -> {
                         (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
-                        viewModel.pageReset()
+                        viewModel.resetPage()
                         viewModel.loadProducts(viewModel.getSearch(),"oily")
                     }
                     "건성"  -> {
                         (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
-                        viewModel.pageReset()
+                        viewModel.resetPage()
                         viewModel.loadProducts(viewModel.getSearch(),"dry")
                     }
                     "민감성" -> {
                         (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
-                        viewModel.pageReset()
+                        viewModel.resetPage()
                         viewModel.loadProducts(viewModel.getSearch(),"sensitive")
                     }
                 }
