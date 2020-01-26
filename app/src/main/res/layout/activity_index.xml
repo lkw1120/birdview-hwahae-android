@@ -36,11 +36,12 @@
                     android:id="@+id/search_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/search_view_margin_start"
-                    android:layout_marginEnd="@dimen/search_view_margin_end"
                     android:layout_marginTop="@dimen/search_view_margin_top"
                     android:layout_marginBottom="@dimen/search_view_margin_bottom"
-                    app:queryBackground="@android:color/transparent"/>
+                    android:focusable="false"
+                    app:iconifiedByDefault="false"
+                    app:queryHint="@string/search_query_hint"
+                    app:queryBackground="@android:color/transparent" />
 
             </androidx.cardview.widget.CardView>
         </com.google.android.material.appbar.AppBarLayout>
