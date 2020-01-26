@@ -24,9 +24,9 @@
                     app:layout_constraintTop_toTopOf="parent">
                         <ImageView
                             android:id="@+id/product_thumbnail_image"
+                            android:contentDescription="@string/thumbnail_image"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:contentDescription="@string/thumbnail_image"
                             imageUrl="@{item.thumbnail_image}"/>
                 </com.google.android.material.card.MaterialCardView>
 
