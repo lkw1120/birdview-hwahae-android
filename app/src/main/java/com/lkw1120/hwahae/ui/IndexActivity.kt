@@ -111,13 +111,13 @@ class IndexActivity : AppCompatActivity() {
     }
 
     private fun skinTypeListener() {
-        binding.spinnerType.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+        binding.spinnerSkinType.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 binding.progressIcon.visibility = View.VISIBLE
-                when(binding.spinnerType.getItemAtPosition(position)) {
+                when(binding.spinnerSkinType.getItemAtPosition(position)) {
                     "지성"  -> {
                         (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
                         viewModel.resetPage()
