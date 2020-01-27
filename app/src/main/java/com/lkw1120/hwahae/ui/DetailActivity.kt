@@ -47,15 +47,15 @@ class DetailActivity : AppCompatActivity() {
 
             }
             400 -> {
-                Toast.makeText(this,"파라미터의 값이 올바르지 않습니다.",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,R.string.status_code_400,Toast.LENGTH_SHORT).show()
                 onBackPressed()
             }
             404 -> {
-                Toast.makeText(this,"제품이 없습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,R.string.status_code_404, Toast.LENGTH_SHORT).show()
                 onBackPressed()
             }
             500 -> {
-                Toast.makeText(this,"서버에 문제가 있습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,R.string.status_code_500, Toast.LENGTH_SHORT).show()
                 onBackPressed()
             }
         }
