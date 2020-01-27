@@ -40,13 +40,20 @@ class IndexActivity : AppCompatActivity() {
     }
 
     private fun setup() {
-        binding.recyclerView.run {
-            addItemDecoration(RecyclerViewDecoration(2,
-                resources.getDimensionPixelSize(R.dimen.product_item_margin_width),
-                resources.getDimensionPixelSize(R.dimen.product_item_margin_height),
-                resources.getDimensionPixelSize(R.dimen.product_item_margin_top)))
-            layoutManager = GridLayoutManager(this@IndexActivity,2)
-            adapter = RecyclerViewAdapter(this@IndexActivity)
+        binding.run {
+            recyclerView.run {
+                addItemDecoration(
+                    RecyclerViewDecoration(
+                        2,
+                        resources.getDimensionPixelSize(R.dimen.product_item_margin_width),
+                        resources.getDimensionPixelSize(R.dimen.product_item_margin_height),
+                        resources.getDimensionPixelSize(R.dimen.product_item_margin_top)
+                    )
+                )
+                layoutManager = GridLayoutManager(this@IndexActivity, 2)
+                adapter = RecyclerViewAdapter(this@IndexActivity)
+            }
+            scrollView.setOnScrollChangeListener(onScrollChangeListener())
         }
     }
 
@@ -87,7 +94,6 @@ class IndexActivity : AppCompatActivity() {
 
     private fun loadProducts() {
         viewModel.loadProducts()
-        binding.scrollView.setOnScrollChangeListener(onScrollChangeListener())
     }
 
     private fun onScrollChangeListener() = NestedScrollView.OnScrollChangeListener {
