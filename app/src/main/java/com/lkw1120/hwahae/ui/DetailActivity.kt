@@ -28,12 +28,22 @@ class DetailActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         binding.lifecycleOwner = this
 
+        setup()
         dataObserver()
         loadDetail(intent.getIntExtra("id",0))
         slideInAnimation()
 
-        fabListener()
-        buttonListener()
+    }
+
+    private fun setup() {
+        binding.run {
+            detailFab.setOnClickListener {
+                onBackPressed()
+            }
+            detailButton.setOnClickListener {
+                Toast.makeText(this@DetailActivity,R.string.detail_button_toast,Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun dataObserver() {
@@ -69,17 +79,6 @@ class DetailActivity : AppCompatActivity() {
 
     private fun loadDetail(id: Int) {
         viewModel.loadDetail(id)
-    }
-
-    private fun buttonListener() {
-        binding.detailButton.setOnClickListener {
-            Toast.makeText(this,R.string.detail_button_toast,Toast.LENGTH_SHORT).show()
-        }
-    }
-    private fun fabListener() {
-        binding.detailFab.setOnClickListener {
-            onBackPressed()
-        }
     }
 
     override fun onBackPressed() {

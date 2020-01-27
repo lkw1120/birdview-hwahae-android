@@ -34,9 +34,6 @@ class IndexActivity : AppCompatActivity() {
         setup()
         dataObserver()
         loadProducts()
-
-        searchListener()
-        skinTypeListener()
     }
 
     private fun setup() {
@@ -54,6 +51,8 @@ class IndexActivity : AppCompatActivity() {
                 adapter = RecyclerViewAdapter(this@IndexActivity)
             }
             scrollView.setOnScrollChangeListener(onScrollChangeListener())
+            searchView.setOnQueryTextListener(searchListener())
+            spinnerSkinType.onItemSelectedListener = skinTypeListener()
         }
     }
 
@@ -106,40 +105,36 @@ class IndexActivity : AppCompatActivity() {
         }
     }
 
-    private fun searchListener() {
-        binding.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
-                viewModel.resetPage()
-                viewModel.loadProducts(query!!,viewModel.getSkinType())
-                return false
-            }
-            override fun onQueryTextChange(newText: String?): Boolean = false
-        })
+    private fun searchListener() = object: SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean {
+            (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
+            viewModel.resetPage()
+            viewModel.loadProducts(query!!,viewModel.getSkinType())
+            return false
+        }
+        override fun onQueryTextChange(newText: String?): Boolean = false
     }
 
-    private fun skinTypeListener() {
-        binding.spinnerSkinType.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+    private fun skinTypeListener()  = object: AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) {
 
-            }
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                when(binding.spinnerSkinType.getItemAtPosition(position)) {
-                    "지성"  -> {
-                        (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
-                        viewModel.resetPage()
-                        viewModel.loadProducts(viewModel.getSearch(),"oily")
-                    }
-                    "건성"  -> {
-                        (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
-                        viewModel.resetPage()
-                        viewModel.loadProducts(viewModel.getSearch(),"dry")
-                    }
-                    "민감성" -> {
-                        (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
-                        viewModel.resetPage()
-                        viewModel.loadProducts(viewModel.getSearch(),"sensitive")
-                    }
+        }
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            when(binding.spinnerSkinType.getItemAtPosition(position)) {
+                "지성"  -> {
+                    (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
+                    viewModel.resetPage()
+                    viewModel.loadProducts(viewModel.getSearch(),"oily")
+                }
+                "건성"  -> {
+                    (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
+                    viewModel.resetPage()
+                    viewModel.loadProducts(viewModel.getSearch(),"dry")
+                }
+                "민감성" -> {
+                    (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
+                    viewModel.resetPage()
+                    viewModel.loadProducts(viewModel.getSearch(),"sensitive")
                 }
             }
         }
