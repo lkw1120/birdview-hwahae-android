@@ -59,6 +59,7 @@ class IndexActivity : AppCompatActivity() {
         when(code) {
             200 -> {
                 binding.progressIcon.visibility = View.VISIBLE
+                viewModel.nextPage()
             }
             400 -> {
                 binding.progressIcon.visibility = View.INVISIBLE
@@ -90,10 +91,7 @@ class IndexActivity : AppCompatActivity() {
             _, _, _, _, _ ->
         if(!binding.scrollView.canScrollVertically(1) &&
             binding.recyclerView.scrollState == RecyclerView.SCROLL_STATE_SETTLING) {
-            viewModel.run{
-                nextPage()
-                loadProducts()
-            }
+            viewModel.loadProducts()
         }
     }
 
