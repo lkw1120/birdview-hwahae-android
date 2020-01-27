@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="detail"
+            type="com.lkw1120.hwahae.datasource.entity.Detail" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/detail_activity_layout"
+        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.DetailActivity">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detail_top_bar"
+            android:layout_width="@dimen/detail_top_bar_width"
+            android:layout_height="@dimen/detail_top_bar_height"
+            android:background="@android:color/white"
+            app:cardCornerRadius="@dimen/detail_top_bar_radius"
+            app:cardElevation="@dimen/detail_top_bar_elevation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detail_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/detail_content_margin_top"
+            android:layout_marginBottom="@dimen/detail_content_margin_bottom"
+            android:background="@android:color/white"
+            app:cardCornerRadius="@dimen/detail_content_radius"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:scrollbars="none">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/detail_image"
+                        android:contentDescription="@string/full_size_image"
+                        imageUrl="@{detail.full_size_image}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/detail_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/detail_content_margin_start"
+                        android:layout_marginEnd="@dimen/detail_content_margin_end"
+                        android:layout_marginTop="@dimen/detail_title_margin_top"
+                        android:text="@{detail.title}"
+                        android:textColor="@color/detail_title_text"
+                        android:textSize="@dimen/detail_title_text_size"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/detail_image" />
+
+                    <TextView
+                        android:id="@+id/detail_price"
+                        price="@{detail.price}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/detail_content_margin_start"
+                        android:layout_marginEnd="@dimen/detail_content_margin_end"
+                        android:layout_marginTop="@dimen/detail_price_margin_top"
+                        android:textColor="@color/detail_price_text"
+                        android:textSize="@dimen/detail_price_text_size"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/detail_title" />
+
+                    <View
+                        android:id="@+id/detail_horizontal_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/detail_horizon_bar_height"
+                        android:layout_marginStart="@dimen/detail_content_margin_start"
+                        android:layout_marginEnd="@dimen/detail_content_margin_end"
+                        android:layout_marginTop="@dimen/detail_horizon_bar_margin_top"
+                        android:background="@color/detail_horizon_bar_background"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/detail_price" />
+
+                    <TextView
+                        android:id="@+id/detail_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/detail_content_margin_start"
+                        android:layout_marginEnd="@dimen/detail_content_margin_end"
+                        android:layout_marginTop="@dimen/detail_description_margin_top"
+                        android:text="@{detail.description}"
+                        android:textColor="@color/detail_description_text"
+                        android:textSize="@dimen/detail_description_text_size"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/detail_horizontal_bar" />
+
+                    <TextView
+                        android:id="@+id/detail_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/detail_content_margin_start"
+                        android:layout_marginEnd="@dimen/detail_content_margin_end"
+                        android:layout_marginTop="@dimen/detail_alert_margin_top"
+                        android:layout_marginBottom="@dimen/detail_alert_margin_bottom"
+                        android:background="@drawable/detail_alert_background"
+                        android:paddingStart="@dimen/detail_alert_padding_start"
+                        android:paddingEnd="@dimen/detail_alert_padding_end"
+                        android:paddingTop="@dimen/detail_alert_padding_top"
+                        android:paddingBottom="@dimen/detail_alert_padding_bottom"
+                        android:text="@string/detail_alert"
+                        android:textColor="@color/detail_alert_text"
+                        android:textSize="@dimen/detail_alert_text_size"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/detail_description" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/detail_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detail_fab_margin_top"
+            android:layout_marginEnd="@dimen/detail_fab_margin_end"
+            android:src="@drawable/ic_close"
+            android:alpha="@dimen/detail_fab_alpha"
+            app:backgroundTint="@color/detail_fab_background"
+            app:fabSize="mini"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/detail_content" />
+
+        <Button
+            android:id="@+id/detail_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/detail_button_height"
+            android:layout_marginStart="@dimen/detail_content_margin_start"
+            android:layout_marginEnd="@dimen/detail_content_margin_start"
+            android:layout_marginBottom="@dimen/detail_button_margin_bottom"
+            android:textAlignment="center"
+            android:text="@string/detail_button"
+            android:textColor="@color/detail_button_text"
+            android:textSize="@dimen/detail_button_text_size"
+            android:background="@drawable/detail_button_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
