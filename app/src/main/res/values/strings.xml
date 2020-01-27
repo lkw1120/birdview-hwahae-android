@@ -10,7 +10,7 @@
     <string name="detail_button">구매하기</string>
     <string name="detail_button_toast">구매 버튼 클릭</string>
 
-    <string name="status_code_400">형식이 올바르지 않습니다.</string>
+    <string name="status_code_400">잘못된 요청입니다.</string>
     <string name="status_code_404">제품이 없습니다.</string>
     <string name="status_code_500">서버에 문제가 있습니다.</string>
 
