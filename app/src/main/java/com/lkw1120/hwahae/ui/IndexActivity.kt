@@ -78,6 +78,9 @@ class IndexActivity : AppCompatActivity() {
 
     private fun productsObserver() = Observer<MutableList<Product>>{
         if(it != null) {
+            if(it.size < 20) {
+                binding.progressIcon.visibility = View.INVISIBLE
+            }
             (binding.recyclerView.adapter as RecyclerViewAdapter).addItems(it)
         }
     }
