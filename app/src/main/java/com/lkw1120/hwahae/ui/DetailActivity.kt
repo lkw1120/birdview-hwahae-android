@@ -73,7 +73,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun buttonListener() {
         binding.detailButton.setOnClickListener {
-            Toast.makeText(this,"구매 버튼 클릭",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,R.string.detail_button_toast,Toast.LENGTH_SHORT).show()
         }
     }
     private fun fabListener() {
