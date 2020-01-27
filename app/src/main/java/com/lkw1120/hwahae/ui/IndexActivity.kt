@@ -65,7 +65,6 @@ class IndexActivity : AppCompatActivity() {
     private fun statusCodeObserver() = Observer<Int> { code ->
         when(code) {
             200 -> {
-                binding.progressIcon.visibility = View.VISIBLE
                 viewModel.nextPage()
             }
             400 -> {
@@ -88,6 +87,9 @@ class IndexActivity : AppCompatActivity() {
             if(it.size < 20) {
                 binding.progressIcon.visibility = View.INVISIBLE
             }
+            else {
+                binding.progressIcon.visibility = View.VISIBLE
+            }
             (binding.recyclerView.adapter as RecyclerViewAdapter).addItems(it)
         }
     }
@@ -107,7 +109,6 @@ class IndexActivity : AppCompatActivity() {
     private fun searchListener() {
         binding.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                binding.progressIcon.visibility = View.VISIBLE
                 (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
                 viewModel.resetPage()
                 viewModel.loadProducts(query!!,viewModel.getSkinType())
@@ -123,7 +124,6 @@ class IndexActivity : AppCompatActivity() {
 
             }
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                binding.progressIcon.visibility = View.VISIBLE
                 when(binding.spinnerSkinType.getItemAtPosition(position)) {
                     "지성"  -> {
                         (binding.recyclerView.adapter as RecyclerViewAdapter).clearItems()
