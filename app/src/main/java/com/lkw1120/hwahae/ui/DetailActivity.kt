@@ -3,6 +3,7 @@ package com.lkw1120.hwahae.ui
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
@@ -13,6 +14,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.lkw1120.hwahae.R
 import com.lkw1120.hwahae.databinding.ActivityDetailBinding
 import com.lkw1120.hwahae.datasource.entity.Detail
+import com.lkw1120.hwahae.datasource.remote.ApiResponse
+import com.lkw1120.hwahae.datasource.remote.DetailResponse
+import com.lkw1120.hwahae.datasource.remote.ErrorResponse
 import com.lkw1120.hwahae.viewmodel.DetailViewModel
 
 
@@ -47,33 +51,30 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun dataObserver() {
-        viewModel.getStatusCode().observe(this, statusCodeObserver())
-        viewModel.getDetail().observe(this, detailObserver())
+        viewModel.getDetail().observe(this,observer())
     }
 
-    private fun statusCodeObserver() = Observer<Int> { code ->
-        when(code) {
+    private fun observer() = Observer<ApiResponse> {
+        when(it.statusCode) {
             200 -> {
-
+                binding.detail = (it as DetailResponse).body
             }
             400 -> {
+                Log.d("Error",(it as ErrorResponse).body)
                 Toast.makeText(this,R.string.status_code_400,Toast.LENGTH_SHORT).show()
                 onBackPressed()
             }
             404 -> {
+                Log.d("Error",(it as ErrorResponse).body)
                 Toast.makeText(this,R.string.status_code_404, Toast.LENGTH_SHORT).show()
                 onBackPressed()
             }
             500 -> {
+                Log.d("Error",(it as ErrorResponse).body)
                 Toast.makeText(this,R.string.status_code_500, Toast.LENGTH_SHORT).show()
                 onBackPressed()
             }
-        }
-    }
 
-    private fun detailObserver() = Observer<Detail> {
-        if(it != null) {
-            binding.detail = it
         }
     }
 

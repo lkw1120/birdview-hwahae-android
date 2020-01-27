@@ -1,6 +1,7 @@
 package com.lkw1120.hwahae.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
@@ -15,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lkw1120.hwahae.R
 import com.lkw1120.hwahae.databinding.ActivityIndexBinding
 import com.lkw1120.hwahae.datasource.entity.Product
+import com.lkw1120.hwahae.datasource.remote.ApiResponse
+import com.lkw1120.hwahae.datasource.remote.ErrorResponse
+import com.lkw1120.hwahae.datasource.remote.ProductResponse
 import com.lkw1120.hwahae.ui.adapter.RecyclerViewAdapter
 import com.lkw1120.hwahae.ui.adapter.RecyclerViewDecoration
 import com.lkw1120.hwahae.viewmodel.IndexViewModel
@@ -57,39 +61,36 @@ class IndexActivity : AppCompatActivity() {
     }
 
     private fun dataObserver() {
-        viewModel.getStatusCode().observe(this,statusCodeObserver())
-        viewModel.getProducts().observe(this,productsObserver())
+        viewModel.getProducts().observe(this,observer())
     }
 
-    private fun statusCodeObserver() = Observer<Int> { code ->
-        when(code) {
+    private fun observer() = Observer<ApiResponse> {
+        when(it.statusCode) {
             200 -> {
+                if((it as ProductResponse).scanned_count < 20) {
+                    binding.progressIcon.visibility = View.INVISIBLE
+                }
+                else {
+                    binding.progressIcon.visibility = View.VISIBLE
+                }
+                (binding.recyclerView.adapter as RecyclerViewAdapter).addItems(it.body)
                 viewModel.nextPage()
             }
             400 -> {
+                Log.d("Error",(it as ErrorResponse).body)
                 binding.progressIcon.visibility = View.INVISIBLE
                 Toast.makeText(this,R.string.status_code_400,Toast.LENGTH_SHORT).show()
             }
             404 -> {
+                Log.d("Error",(it as ErrorResponse).body)
                 binding.progressIcon.visibility = View.INVISIBLE
                 Toast.makeText(this,R.string.status_code_404, Toast.LENGTH_SHORT).show()
             }
             500 -> {
+                Log.d("Error",(it as ErrorResponse).body)
                 binding.progressIcon.visibility = View.INVISIBLE
                 Toast.makeText(this,R.string.status_code_500, Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-
-    private fun productsObserver() = Observer<MutableList<Product>>{
-        if(it != null) {
-            if(it.size < 20) {
-                binding.progressIcon.visibility = View.INVISIBLE
-            }
-            else {
-                binding.progressIcon.visibility = View.VISIBLE
-            }
-            (binding.recyclerView.adapter as RecyclerViewAdapter).addItems(it)
         }
     }
 
