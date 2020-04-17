@@ -1,5 +1,9 @@
 # 버드뷰(화해) Android 과제
- 
+
+### 기간
+20년 01월 06일 10:00 ~ 01월 28일 12:00
+
+
 ### 스크린샷
 
 <img src="https://github.com/lkw1120/birdview-hwahae-android/blob/master/assets/images/Screenshot_2020-01-28-01-41-03.png" width="35%"><img src="https://github.com/lkw1120/birdview-hwahae-android/blob/master/assets/images/Screenshot_2020-01-28-01-41-21.png" width="35%">
