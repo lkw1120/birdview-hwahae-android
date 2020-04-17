@@ -1,6 +1,4 @@
-# [버드뷰(화해) Android 과제](https://programmers.co.kr/competitions/130/2020-hwahae-blind-recruitment)
-
-### 기간
+# 버드뷰(화해) Android 과제
 
 20년 01월 06일 10:00 ~ 01월 28일 12:00
 
